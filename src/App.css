@@ -23,6 +23,7 @@ h1 {
 }
 
 input {
+    font-family: inherit;
     font-size: 30px;
     caret-color: transparent;
     background-color: black;
@@ -30,15 +31,26 @@ input {
     border: 0.5px;
     height: 80px;
     width: 99%;
-    position: relative;
-    z-index: 2;
+    position: relative; 
+    z-index: 1;
 }
 
-.Container span {
+#search {
+    position: relative;
+    width: 100%;
+    background-color: transparent;
+}
+
+
+ #auto {
+    font-family: inherit;
+    font-size: 30px;
+    text-align: left;
     position: absolute;
-    top: 0;
+    top: 25%;
     left: 0;
     pointer-events: none;
-    color: rgba(0, 0, 0, 0.3);
-    z-index: 1;
+    color: rgba(255, 255, 255, 0.3);
+    z-index: 2;
+    width: 100%;
 } 

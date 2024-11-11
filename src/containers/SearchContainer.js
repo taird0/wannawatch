@@ -4,13 +4,13 @@ import SearchBar from '../components/SearchBar';
 
 function SearchContainer()
 {
-    const suggestions = ["Action", "Adventure", "Animation", "Anime",
-        "Biography", "Biography", "Crime", "Documentary", "Drama", 
-        "Entertainment", "Fantasy", "Game Show", "LGBTQ+", "Health",
-        "History", "Holiday", "Horror", "Kids & Family", "Music",
-        "Mystery", "Thriller", "Nature", "News", "Reality", "Romance",
-        "Sci-Fi", "Short", "Soap", "Special Interest", "Sports", 
-        "Stand-Up", "Talk-Show", "Travel", "Variety", "War", "Western"
+    const suggestions = ["action", "adventure", "animation", "anime",
+        "biography", "biography", "crime", "comedy", "documentary", "drama", 
+        "entertainment", "fantasy", "game show", "lgbtq+", "health",
+        "history", "holiday", "horror", "kids & family", "music",
+        "mystery", "thriller", "nature", "news", "reality", "romance",
+        "sci-fi", "short", "soap", "special interest", "sports", 
+        "stand-up", "talk-show", "travel", "variety", "war", "western"
     ];
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -20,11 +20,14 @@ function SearchContainer()
     const handleTextInput = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
+
         if(value.length > 0) {
             const filteredSuggestions = suggestions.filter(suggestion => 
-                suggestion.toLowerCase().includes(value.toLowerCase())
+                suggestion.toLowerCase().startsWith(value.toLowerCase())
             );
+
             setAutocomplete(filteredSuggestions);
+            setClosestMatch(filteredSuggestions[0]);
             console.log(autocomplete, closestMatch)
 
             if (filteredSuggestions.length > 0) {
@@ -53,12 +56,9 @@ function SearchContainer()
             handleTextInput={handleTextInput}
             handleKeyDown={handleKeyDown}
             searchTerm={searchTerm}
+            closestMatch={closestMatch}
             placeholder={"Enter a genre or keyword"}
             />
-
-            <span style={{paddingLeft: searchTerm.length * 8,}}>
-                {closestMatch.slice(searchTerm.length)}
-            </span>
         </div>
     )
 }

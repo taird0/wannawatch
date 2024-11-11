@@ -1,12 +1,20 @@
 import React from 'react';
 
-function SearchBar({searchTerm, handleTextInput, handleKeyDown, placeholder}) {
+function SearchBar({handleTextInput, handleKeyDown, searchTerm, closestMatch, placeholder}) {
     return (
-        <>
-            <input type='text' name='searchBar' value={searchTerm || ""} 
-            onChange={handleTextInput} onKeyDown={handleKeyDown} 
-            placeholder={placeholder}/>
-        </>
+        <div id="search">
+            <input 
+            type='text' 
+            name='searchBar' 
+            value={searchTerm || ""} 
+            onChange={handleTextInput} 
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder} 
+            />
+            <div id="auto">
+                <span style={{/*paddingLeft: searchTerm.length * 16 + "px"*/}}>{closestMatch}</span>
+            </div>
+        </div>
     )
 }
 
