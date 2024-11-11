@@ -37,10 +37,10 @@ def search(keyword):
 
 
 
-def search_genre(genre):
+def search_genre(genre, filter="audience_highest"):
     base_url = f"https://www.rottentomatoes.com"
 
-    list = f"/browse/movies_at_home/genres:{genre}~sort:audience_highest"
+    list = f"/browse/movies_at_home/genres:{genre}~sort:{filter}"
 
     response = requests.get(base_url + list, header)
 
