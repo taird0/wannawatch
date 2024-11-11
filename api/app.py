@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, request
+from scraper import search
 
 app = Flask(__name__)
 
-@app.route('/test')
-def test():
-    return "<p>Hello World!</p>"
+@app.route('/search')
+def keyword_scrape():
+    return search(request.args.get('keyword'))
 
 
 
