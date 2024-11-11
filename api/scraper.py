@@ -56,29 +56,25 @@ def search_genre(genre, filter="audience_highest"):
 
         movie_response = requests.get(base_url + m_endpoint, header)
         movie_soup = BeautifulSoup(movie_response.content, 'html.parser')
-
-        div_list = movie_soup.find('div', attrs={'data-modulecastcrewmanager': 'container'})
-        
+ 
         try:
+            div_list = movie_soup.find('div', attrs={'data-modulecastcrewmanager': 'container'})
             actor_list = [div.get_text() for div in div_list.find_all('p', class_='name')]
         except AttributeError:
             actor_list = []
 
-        print()
-        movie_data_dict[id] = [
-            movie_soup.find('title').get_text().split('|')[0].split('()')[0], # title
-            movie_soup.find('rt-text', attrs={'slot': 'audienceScore'}).get_text(), # rating
-            movie_soup.find_all('div', attrs={'class': 'category-wrap'})[-2].find_all('rt-text')[1].get_text().split(',')[1].strip(), # released
-            [actor_list[actor] for actor in range(1, 3) if actor_list], # starring
-            movie_soup.find('rt-img', attrs={'slot': 'posterImage'})['src'] # poster
-        ]
+        try:
+            movie_data_dict[id] = [
+                movie_soup.find('title').get_text().split('|')[0].split('()')[0], # title
+                movie_soup.find('rt-text', attrs={'slot': 'audienceScore'}).get_text(), # rating
+                movie_soup.find_all('div', attrs={'class': 'category-wrap'})[-2].find_all('rt-text')[1].get_text().split(',')[1].strip(), # released
+                [actor_list[actor] for actor in range(1, 3) if actor_list], # starring
+                movie_soup.find('rt-img', attrs={'slot': 'posterImage'})['src'] # poster
+            ]
+            id += 1
+        except:
+            print('error')
 
-        print(movie_data_dict)
-
-
-    #print(movie_list)
-search_genre('adventure')
-
-
-
-
+    movie_data_json = json.dumps(movie_data_dict, indent=4)
+    return movie_data_json
+            
