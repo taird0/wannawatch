@@ -1,5 +1,5 @@
 from flask import Flask, request
-from scraper import search
+from scraper import search, search_genre
 
 app = Flask(__name__)
 
